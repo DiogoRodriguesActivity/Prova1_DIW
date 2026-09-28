@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Candidatos</h1>
+    <form th:action="@{/}" method="get">
+        <input type="number" name="idadeMin" th:value="${idadeMin}">
+        <input type="number" name="idadeMin" th:value="${idadeMax}">
+        <label>
+        <input type="radio" name="genero" value="" th:checked="${generoSelecionado == ''}">
+        Todos
+        </label>
+        <label th:each="g : ${generos}">
+        <input type="radio" name="genero" th:value="${g}" th:checked="${g == generoSelecionado}">
+        <span th:text="${g}">Genero</span>
+        Todos
+     </label>
+        
+     <select name="escolaridade">
+        <option value="" th:selected="${escolaridadeSelecionada == ''}">Todas</option>
+        <option th:each="e : ${escolariodades}"
+        th:value="${e}"
+        th:text="${e}"
+        th:selected="${e == escolaridadeSelecionada}">
+        </option>
+     </select>
+
+    </form>
+
+    <article class="card-candidato" th:each="cand: ${candidatos}"></article>
+
+    <img th:src="@{'/images/candidatos/' + ${cand.nomeArquivoFoto}}" th:alt="${cand.nomeUrna}" class="foto-candidato">
+<p th:text="${cand.cargo + ' · ' + cand.siglaPartido}">Cargo · Partido</p>
+</body>
+</html>
